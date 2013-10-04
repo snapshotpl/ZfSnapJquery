@@ -1,0 +1,29 @@
+{
+    "name": "snapshotpl/zf-snap-jquery",
+    "description": "jQuery and jQuery UI helpers and form elements for Zend Framework 2",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "jquery",
+        "zf2",
+        "jquery-ui",
+        "javascript"
+    ],
+    "authors": [
+        {
+            "name": "Witold Wasiczko",
+            "email": "witold@wasiczko.pl",
+            "homepage": "http://www.psd2html.pl/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "require-dev": {
+        "zendframework/zendframework": "2.2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "ZfSnapJquery": "src/"
+        }
+    }
+}
