@@ -5,6 +5,7 @@ namespace ZfSnapJquery\View\Helper;
 use ZfSnapJquery\Libraries\Jquery as JqueryLib;
 use ZfSnapJquery\View\Helper\Jquery as JqueryHelper;
 use Zend\Json\Json;
+use Zend\Json\Expr;
 
 /**
  * JqueryCaller
@@ -56,7 +57,11 @@ class JqueryCaller
      */
     public function selector($selector)
     {
-        $this->call[] = $this->getGodFunctionName() . '("'.$selector.'")';
+        if (!$selector instanceof Expr) {
+            $selector = '"'. $selector .'"';
+        }
+        $this->call[] = $this->getGodFunctionName() . '('.$selector.')';
+
         return $this;
     }
 

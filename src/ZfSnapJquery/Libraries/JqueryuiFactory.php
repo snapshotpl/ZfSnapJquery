@@ -25,7 +25,8 @@ class JqueryuiFactory implements FactoryInterface
         $jquery = $serviceLocator->get('jquery-ui-class');
         /* @var $jquery \ZfSnapJquery\Libraries\Jqueryui */
         $jquery->setVersion($configJquery['version']);
-        $jquery->setCdnScript($configJquery['script']);
+        $jquery->setCdnScript($configJquery['cdnScript']);
+        $jquery->setScript($configJquery['script']);
         $jquery->setEnabled($configJquery['enabled']);
         $jquery->setTheme($configJquery['theme']);
         $jquery->setCdnStyle($configJquery['style']);

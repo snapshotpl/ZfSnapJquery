@@ -14,7 +14,7 @@ class Jquery implements LibraryIterface
     const CDN_MICROSOFT = 'http://ajax.aspnetcdn.com/ajax/jQuery/jquery-%s.min.js';
     const CDN_CDNJS = '//cdnjs.cloudflare.com/ajax/libs/jquery/%s/jquery.min.js';
     const CDN_DEFAULT = self::CDN_JQUERY;
-    const VERSION_DEFAULT = '2.0.3';
+    const VERSION_DEFAULT = '1.10.2';
 
     /**
      * @var bool
@@ -35,6 +35,11 @@ class Jquery implements LibraryIterface
      * @var string
      */
     private $cdnScript = self::CDN_DEFAULT;
+
+    /**
+     * @var string
+     */
+    private $script = null;
 
     /**
      * @return bool
@@ -77,10 +82,18 @@ class Jquery implements LibraryIterface
      */
     public function getCdnScript()
     {
-        if (strpos($this->cdnScript, '%s') === false) {
-            return $this->cdnScript;
-        }
         return sprintf($this->cdnScript, $this->getVersion());
+    }
+
+    /**
+     * @param string $script
+     * @return Jquery
+     */
+    public function setScript($script)
+    {
+        $this->script = $script;
+
+        return $this;
     }
 
     /**
@@ -117,7 +130,11 @@ class Jquery implements LibraryIterface
     public function getScripts()
     {
         if ($this->isEnabled()) {
-            $script = $this->getCdnScript();
+            if ($this->script === null) {
+                $script = $this->getCdnScript();
+            } else {
+                $script = $this->script;
+            }
 
             return $script;
         }

@@ -25,7 +25,8 @@ class JqueryFactory implements FactoryInterface
         $jquery = $serviceLocator->get('jquery-class');
         /* @var $jquery \ZfSnapJquery\Libraries\Jquery */
         $jquery->setVersion($configJquery['version']);
-        $jquery->setCdnScript($configJquery['script']);
+        $jquery->setCdnScript($configJquery['cdnScript']);
+        $jquery->setScript($configJquery['script']);
         $jquery->setEnabled($configJquery['enabled']);
         $jquery->setNoConflictMode($configJquery['noConflictMode']);
 

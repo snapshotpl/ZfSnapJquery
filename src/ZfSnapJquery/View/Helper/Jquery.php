@@ -4,6 +4,8 @@ namespace ZfSnapJquery\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use ZfSnapJquery\Libraries\LibraryIterface;
+use ZfSnapJquery\Libraries\Jquery as JqueryLib;
+use Zend\Json\Expr;
 
 /**
  * Jquery view helper
@@ -31,6 +33,11 @@ class Jquery extends AbstractHelper
      * @var array
      */
     private $helpers = array();
+
+    /**
+     * @var JqueryLib
+     */
+    private $jquery;
 
     /**
      * @param bool $appendToOwnHelper
@@ -71,6 +78,10 @@ class Jquery extends AbstractHelper
     public function addLibrary(LibraryIterface $library)
     {
         $this->libraries[] = $library;
+
+        if ($library instanceof JqueryLib) {
+            $this->jquery = $library;
+        }
         return $this;
     }
 
@@ -101,8 +112,24 @@ class Jquery extends AbstractHelper
                 }
             }
         }
-
         return $headScript;
+    }
+
+    protected function inlineWrapper($script)
+    {
+        $output = 'function() {
+    ' . $script . '
+}';
+
+        $caller = new JqueryCaller($this);
+        $caller->selector(new Expr($output));
+        $output = (string) $caller;
+
+        if ($this->jquery->isNoConflictMode()) {
+            $output = 'jQuery.noConflict();'."\n". $output;
+        }
+
+        return $output;
     }
 
     /**
@@ -113,11 +140,10 @@ class Jquery extends AbstractHelper
         $script = $this->getMergetInlineScripts();
 
         if ($script) {
-            $script = '$(function(){
-    ' . $script . '
-});';
+            $inlineScript = $this->inlineWrapper($script);
+
             $headScript = $this->getContainer('inlineScript');
-            $headScript('script', $script, 'set');
+            $headScript('script', $inlineScript, 'set');
         }
         return $headScript;
     }
@@ -156,6 +182,7 @@ class Jquery extends AbstractHelper
             if ($this->appendToOwnHelpers) {
                 $helper = clone $helper;
                 $helper->exchangeArray(array());
+                $helper->deleteContainer();
             }
             $this->helpers[$name] = $helper;
         }
@@ -192,5 +219,29 @@ class Jquery extends AbstractHelper
             $helper = null;
         }
         return $helper;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        $output = "\n";
+
+        $headLink = $this->getHelper('headLink');
+        $headScript = $this->getHelper('headScript');
+        $inlineScript = $this->getHelper('inlineScript');
+
+        if ($headLink) {
+            $output .= (string) $headLink . "\n";
+        }
+        if ($headScript) {
+            $output .= (string) $headScript . "\n";
+        }
+        if ($inlineScript) {
+            $output .= (string) $inlineScript . "\n";
+        }
+
+        return $output;
     }
 }

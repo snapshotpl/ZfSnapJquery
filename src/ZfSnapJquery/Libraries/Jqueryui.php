@@ -42,6 +42,16 @@ class Jqueryui implements LibraryIterface
     private $theme = self::THEME_DEFAULT;
 
     /**
+     * @var string
+     */
+    private $script = null;
+
+    /**
+     * @var string
+     */
+    private $style = null;
+
+    /**
      * @return string
      */
     public function getTheme()
@@ -134,16 +144,39 @@ class Jqueryui implements LibraryIterface
     }
 
     /**
+     * @param string $script
+     * @return Jqueryui
+     */
+    public function setScript($script)
+    {
+        $this->script = $script;
+
+        return $this;
+    }
+
+    /**
+     * @param string $style
+     * @return Jqueryui
+     */
+    public function setStyle($style)
+    {
+        $this->style = $style;
+
+        return $this;
+    }
+
+    /**
      * @return array|string|null
      */
     public function getScripts()
     {
         if ($this->isEnabled()) {
-            $script = $this->getCdnScript();
-            if (strpos($script, '%s') === false) {
-                return $script;
+            if ($this->script === null) {
+                $script = sprintf($this->getCdnScript(), $this->getVersion());
+            } else {
+                $script = $this->script;
             }
-            return sprintf($script, $this->getVersion());
+            return $script;
         }
         return null;
     }
@@ -154,11 +187,12 @@ class Jqueryui implements LibraryIterface
     public function getStyles()
     {
         if ($this->isEnabled()) {
-            $style = $this->getCdnScript();
-            if (strpos($style, '%s') === false) {
-                return $style;
+            if ($this->style === null) {
+                $style = sprintf($this->getCdnStyle(), $this->getVersion(), $this->getTheme());
+            } else {
+                $style = $this->style;
             }
-            return sprintf($style, $this->getVersion(), $this->getTheme());
+            return $style;
         }
         return null;
     }

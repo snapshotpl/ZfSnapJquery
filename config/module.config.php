@@ -1,19 +1,23 @@
 <?php
 
+use ZfSnapJquery\Libraries;
+
 return array(
     'zf_snap_jquery' => array(
         'libraries' => array(
             'jquery' => array(
-                'version' => ZfSnapJquery\Libraries\Jquery::VERSION_DEFAULT,
-                'script' => ZfSnapJquery\Libraries\Jquery::CDN_DEFAULT,
+                'version' => Libraries\Jquery::VERSION_DEFAULT,
+                'cdnScript' => Libraries\Jquery::CDN_DEFAULT,
+                'script' => null,
                 'enabled' => true,
                 'noConflictMode' => false,
             ),
             'jquery-ui' => array(
-                'theme' => ZfSnapJquery\Libraries\Jqueryui::THEME_DEFAULT,
-                'style' => ZfSnapJquery\Libraries\Jqueryui::CDN_STYLE_DEFAULT,
-                'version' => ZfSnapJquery\Libraries\Jqueryui::VERSION_DEFAULT,
-                'script' => ZfSnapJquery\Libraries\Jqueryui::CDN_JQUERY_SCRIPT,
+                'theme' => Libraries\Jqueryui::THEME_DEFAULT,
+                'style' => Libraries\Jqueryui::CDN_STYLE_DEFAULT,
+                'version' => Libraries\Jqueryui::VERSION_DEFAULT,
+                'cdnScript' => Libraries\Jqueryui::CDN_JQUERY_SCRIPT,
+                'script' => null,
                 'enabled' => true,
             ),
         ),
