@@ -29,7 +29,8 @@ class JqueryuiFactory implements FactoryInterface
         $jquery->setScript($configJquery['script']);
         $jquery->setEnabled($configJquery['enabled']);
         $jquery->setTheme($configJquery['theme']);
-        $jquery->setCdnStyle($configJquery['style']);
+        $jquery->setCdnStyle($configJquery['cdnStyle']);
+        $jquery->setStyle($configJquery['style']);
 
         return $jquery;
     }
