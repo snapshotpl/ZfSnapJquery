@@ -206,3 +206,14 @@ return array(
 ```
 
 To see what you can customize see source of [module.config.php](config/module.config.php).
+
+How to install?
+===============
+Via [`composer`](https://getcomposer.org/)
+```json
+{
+    "require": {
+        "snapshotpl/zf-snap-jquery": "dev-master"
+    }
+}
+```
