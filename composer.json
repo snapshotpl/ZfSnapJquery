@@ -6,7 +6,8 @@
         "jquery",
         "zf2",
         "jquery-ui",
-        "javascript"
+        "javascript",
+        "zend framework"
     ],
     "authors": [
         {
@@ -16,14 +17,19 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.3.3",
+        "zendframework/zend-view": "2.*",
+        "zendframework/zend-modulemanager": "2.*"
     },
     "require-dev": {
-        "zendframework/zendframework": "2.2.*"
+        "zendframework/zendframework": "2.*"
     },
     "autoload": {
         "psr-0": {
             "ZfSnapJquery": "src/"
-        }
+        },
+        "classmap": [
+            "Module.php"
+        ]
     }
 }
