@@ -209,7 +209,7 @@ To see what you can customize see source of [module.config.php](config/module.co
 
 How to install?
 ===============
-Via [`composer`](https://getcomposer.org/)
+Via [composer.json](https://getcomposer.org/)
 ```json
 {
     "require": {
