@@ -53,7 +53,7 @@ abstract class AbstractHelper extends Helper
 
         if ($element !== null) {
             $id = $this->getId($element);
-            $caller->selector('#'. $id);
+            $caller->selectorById($id);
         }
         return $caller;
     }
