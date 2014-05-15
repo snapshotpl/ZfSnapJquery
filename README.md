@@ -25,11 +25,7 @@ Create form:
 ```php
 <?php
 
-namespace Application\Form;
-
-use Zend\Form\Form;
-
-class Jquery extends Form
+class Jquery extends \Zend\Form\Form
 {
     public function init()
     {
@@ -66,7 +62,10 @@ class Jquery extends Form
 
         $this->add(array(
             'name' => 'submit',
-            'type' => 'Submit',
+            'attributes' => array(
+                'type'  => 'submit',
+                'value' => 'Submit ZfSnapJquery form!',
+            ),
         ));
     }
 }
@@ -91,18 +90,22 @@ and print it in view:
 <?php echo $this->form()->openTag($this->form); ?>
 
 <div class="form_element">
+Slider:
 <?php echo $this->formJquerySlider($this->form->get('slider')); ?>
 </div>
 
 <div class="form_element">
+Spinner:
 <?php echo $this->formJquerySpinner($this->form->get('spinner')); ?>
 </div>
 
 <div class="form_element">
+Date picker:
 <?php echo $this->formJqueryDatepicker($this->form->get('datepicker')); ?>
 </div>
 
 <div class="form_element">
+Autocomplete:
 <?php echo $this->formJqueryAutocomplete($this->form->get('autocomplete')); ?>
 </div>
 
