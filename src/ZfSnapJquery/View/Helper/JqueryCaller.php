@@ -72,7 +72,20 @@ class JqueryCaller
      */
     public function selectorById($id)
     {
-        return $this->selector('#'. $id);
+        $escapedId = $this->escapeId($id);
+
+        return $this->selector('#'. $escapedId);
+    }
+
+    /**
+     * Escapes ID selector via http://learn.jquery.com/using-jquery-core/faq/how-do-i-select-an-element-by-an-id-that-has-characters-used-in-css-notation/
+     *
+     * @param string $id
+     * @return string
+     */
+    public function escapeId($id)
+    {
+        return preg_replace('/(:|\.|\[|\])/', '\\\\\\\$0', $id);
     }
 
     /**
