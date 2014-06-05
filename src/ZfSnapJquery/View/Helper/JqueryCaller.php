@@ -97,14 +97,13 @@ class JqueryCaller
     {
         $methodParams = array();
         foreach ($params as $param) {
-        	foreach ($param as $key => $value) {
-				if (stripos($value, 'function') === 0) {
-					$methodParam = (string) $key . ': ' . $value;
-				} else {
-					$methodParam = (string) $key . ': ' . $this->jsonEncode($value);
-				}
-				$methodParams[] = $methodParam;
-        	}
+            foreach ($param as $key => $value) {
+		if (stripos($value, 'function') === 0) {
+		    $value = new Expr($value);
+		}
+		$methodParam = (string) $key . ': ' . $this->jsonEncode($value);
+		$methodParams[] = $methodParam;
+            }
         }
         $arguments = join(', ', $methodParams);
 
